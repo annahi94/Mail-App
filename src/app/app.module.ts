@@ -16,6 +16,7 @@ import { HeadersComponent } from './headers/headers.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductService } from './product.service';
 import { ProductsComponent } from './products/products.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProductsComponent } from './products/products.component';
   ],
   imports: [
     BrowserModule,
+    PdfViewerModule,
     ToastModule.forRoot(),
     BrowserAnimationsModule, 
     FormsModule,
