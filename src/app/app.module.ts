@@ -19,6 +19,7 @@ import { ProductsComponent } from './products/products.component';
 import { AreaComponent } from './area/area.component';
 import { Area } from './area/area.model';
 import { ModalModule } from 'ngx-bootstrap';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ModalModule } from 'ngx-bootstrap';
   ],
   imports: [
     BrowserModule,
+    PdfViewerModule,
     ToastModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,

@@ -10,6 +10,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-facturas',
@@ -37,8 +38,9 @@ export class FacturasComponent implements OnInit {
 
 
   facturas: Factura[];
-
-
+  invoiceIndex: Number = -1;
+  pdf: Uint8Array;
+  
   onSelectFactura(factura) {
     this.facturaService.getFactura(factura.facturaId)
       .subscribe(factura => console.log(factura));
@@ -56,10 +58,32 @@ export class FacturasComponent implements OnInit {
   }
 
   save(factura): void {
-    debugger
     this.facturaService.updateFactura(factura)
       .subscribe(() => console.log('Factura saved!!'));
     this.toastr.success('Note saved!!');
   }
 
+  showPdf(bytePdf, currentInvoice): void {
+    debugger;
+    this.invoiceIndex === -1 ? (this.invoiceIndex = currentInvoice + 1, this.pdf = this.convertDataURIToBinary(bytePdf)) : (this.invoiceIndex = -1, this.pdf = new Uint8Array(0));
+  }
+
+  convertDataURIToBinary(dataURI: string) {
+    var raw = window.atob(dataURI);
+    var rawLength = raw.length;
+    var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+    for (var i = 0; i < rawLength; i++) {
+      array[i] = raw.charCodeAt(i);
+    }
+    return array;
+  }
+
+  clearPdf(array: Uint8Array){
+    debugger;
+    while(array.length > 0){
+      array;
+    }
+    return array;
+  }
 }
