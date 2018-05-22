@@ -12,15 +12,23 @@ import { Menu } from '../menu';
 export class HeadersComponent implements OnInit {
   @Input() menu: Menu;
 
-  headers: Header[] = [{
-    id: 0,
-    title: 'General Electric',
-    logoPath: '../assets/images/GE-logo.png'
-  }, {
-    id: 1,
-    title: 'Health Care',
-    logoPath: '../assets/images/GE-healthcare.png'
-  }]
+  headers: Header[] = [
+    {
+      id: 0,
+      title: 'General Electric',
+      logoPath: '../assets/images/GE-logo.png'
+    },
+    {
+      id: 1,
+      title: 'Health Care',
+      logoPath: '../assets/images/GE-healthcare.png'
+    },
+    {
+      id: 2,
+      title: 'Catálogo de areas',
+      logoPath: '../assets/images/GE-healthcare.png'
+    }
+  ]
 
   constructor() { }
 

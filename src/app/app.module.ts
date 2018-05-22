@@ -16,6 +16,10 @@ import { HeadersComponent } from './headers/headers.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductService } from './product.service';
 import { ProductsComponent } from './products/products.component';
+import { AreaComponent } from './area/area.component';
+import { Area } from './area/area.model';
+import { ModalModule } from 'ngx-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -24,20 +28,22 @@ import { ProductsComponent } from './products/products.component';
     ProductDetailComponent,
     FacturasComponent,
     FacturaDetailComponent,
-    HeadersComponent
+    HeadersComponent,
+    AreaComponent    
   ],
   imports: [
     BrowserModule,
     ToastModule.forRoot(),
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot()
     //,HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [ ProductService, FacturaService ],
-  bootstrap: [ AppComponent ]
+  providers: [ProductService, FacturaService],
+  bootstrap: [AppComponent]
 })
 
 

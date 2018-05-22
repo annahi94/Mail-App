@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Area } from './area/area.model';
 
 @Injectable()
 export class InMemoryDataService {
@@ -16,6 +17,14 @@ export class InMemoryDataService {
       name: 'iPad',
       price: 200
     }];
+
+    const areas = [
+      new Area(1, 'Area 1'),
+      new Area(2, 'Area 2'),
+      new Area(3, 'Area 3'),
+      new Area(4, 'Area 4'),
+      new Area(5, 'Area 5')
+    ]
 
     /*const facturas = [{
       id: 1,
@@ -43,7 +52,7 @@ export class InMemoryDataService {
       noteType: ' '
     }];*/
 
-    return { products/*, facturas */};
+    return { products/*, facturas */, areas };
   }
 
   constructor() { }
