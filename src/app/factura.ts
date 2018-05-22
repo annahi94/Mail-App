@@ -1,5 +1,5 @@
 export class Factura {
-    id: number;
+    facturaId: number;
     cnpj: string;
     po: string;
     noNote: string;
