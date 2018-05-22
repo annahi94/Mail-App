@@ -14,8 +14,7 @@ export class AppComponent {
 
   menus: Menu[] = [
     new Menu(0, '/', 'Home', new Header(0, 'Home', '../assets/images/GE-logo.png')),
-    new Menu(1, '/healthcare', 'Health Care', new Header(1, 'Health Care', '../assets/images/GE-healthcare.png')),
-    new Menu(2, '/products', 'Products', new Header(2, 'Products', ' '))
+    new Menu(1, '/healthcare', 'Health Care', new Header(1, 'Health Care', '../assets/images/GE-healthcare.png'))
   ]
 
   onSelectMenu(menu) {
