@@ -56,7 +56,6 @@ export class FacturasComponent implements OnInit {
   }
 
   save(factura): void {
-    debugger
     this.facturaService.updateFactura(factura)
       .subscribe(() => console.log('Factura saved!!'));
     this.toastr.success('Note saved!!');

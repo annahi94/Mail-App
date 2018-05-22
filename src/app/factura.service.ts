@@ -43,8 +43,7 @@ export class FacturaService {
     );
   }
 
-  updateFactura(factura): Observable<any> {
-    debugger
+  updateFactura(factura: Factura): Observable<any> {    
     return this.http.put(this.facturasURL+`/${factura.facturaId}`, factura, httpOptions).pipe(
       tap(_ => console.log(`Updated factura of id ${factura.facturaId}!`)),
       catchError(this.handleError<any>('updateFactura'))

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Header } from '../header';
 import { Menu } from '../menu';
 
@@ -12,17 +12,12 @@ import { Menu } from '../menu';
 export class HeadersComponent implements OnInit {
   @Input() menu: Menu;
 
-  headers: Header[] = [{
-    id: 0,
-    title: 'General Electric',
-    logoPath: '../assets/images/GE-logo.png'
-  }, {
-    id: 1,
-    title: 'Health Care',
-    logoPath: '../assets/images/GE-healthcare.png'
-  }]
 
-  constructor() { }
+  currentURL='';
+  constructor() {
+    this.currentURL = window.location.pathname;
+    
+  }
 
   ngOnInit() {
   }
