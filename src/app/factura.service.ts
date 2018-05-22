@@ -19,7 +19,7 @@ export class FacturaService {
   
   constructor(private http: HttpClient) { }
 
-  private facturasURL = 'http://localhost:56639/api/Factura';
+  private facturasURL = 'http://localhost:59604/api/Factura';
   
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
