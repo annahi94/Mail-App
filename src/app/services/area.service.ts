@@ -23,6 +23,7 @@ export class AreaSevice {
     }
 
     private url = 'http://localhost:54763/api/Area';
+    //private url = 'api/areas';
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
@@ -31,11 +32,20 @@ export class AreaSevice {
         }
     }
 
-    getAreas(): Observable<Area[]> {      
+    getAreas(): Observable<Area[]> {
         return this.http.get<Area[]>(this.url)
             .pipe(
                 tap(areas => console.log('Areas')),
-                catchError(this.handleError('getFacturas', []))
+                catchError(this.handleError('getAreas', []))
+            )
+    }
+
+    addArea(area: Area): Observable<Area> {
+        debugger
+        return this.http.post<Area>(this.url, area, httpOptions)
+            .pipe(
+                tap((area: Area) => console.log(`Added area of id ${area.id}!`)),
+                catchError(this.handleError<Area>('addArea'))
             )
     }
 }

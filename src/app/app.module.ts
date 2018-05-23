@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +20,7 @@ import { AreaComponent } from './area/area.component';
 import { Area } from './area/area.model';
 import { ModalModule } from 'ngx-bootstrap';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AreaSevice } from './services/area.service';
 
 
 @NgModule({
@@ -41,10 +42,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     AppRoutingModule,
     HttpModule,
     HttpClientModule,
-    ModalModule.forRoot()
-    //,HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
+    ModalModule.forRoot(),
+    ReactiveFormsModule,
+    //HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [ProductService, FacturaService],
+  providers: [ProductService, FacturaService, AreaSevice],
   bootstrap: [AppComponent]
 })
 

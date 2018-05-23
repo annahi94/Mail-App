@@ -9,13 +9,23 @@ import { Header } from './header';
 })
 
 export class AppComponent {
+  
   title = 'app';
   selectedMenu: Menu;
-
+  currentURL: string = '';
   menus: Menu[] = [
     new Menu(0, '/', 'Home', new Header(0, 'Home', '../assets/images/GE-logo.png')),
-    new Menu(1, '/healthcare', 'Health Care', new Header(1, 'Health Care', '../assets/images/GE-healthcare.png'))
+    new Menu(1, '/healthcare', 'Health Care', new Header(1, 'Health Care', '../assets/images/GE-healthcare.png')),
+    new Menu(1, '/area', 'Area', new Header(1, 'Area', '../assets/images/GE-healthcare.png'))
   ]
+
+  constructor() {
+    this.currentURL = window.location.pathname;
+  }
+
+  ngOnInit() {
+    this.setHeader();
+  }
 
   onSelectMenu(menu) {
     this.selectedMenu = menu;
@@ -27,15 +37,6 @@ export class AppComponent {
        this.selectedMenu = element; 
       }
     });
-  }
-
-  currentURL='';
-  constructor() {
-    this.currentURL = window.location.pathname;
-  }
-
-  ngOnInit() {
-    this.setHeader();
   }
 }
 
