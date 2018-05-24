@@ -1,14 +1,15 @@
 <div>
-    <div class="row pull-right">
-        <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="Buscar...">
+    <div class="row">
+        <div class="col-sm-4">
+            <input type="text" [(ngModel)]="search" class="form-control" placeholder="Search...">
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1 pull-right">
             <button class="btn btn-primary" (click)="openModal(templateArea, actionEnum.ADD)" tooltip="Add">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
     </div>
+    <hr />
     <table class="table table-hover" [@flyInOut]>
         <thead>
             <tr>
@@ -19,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let row of areas; let i = index">
+            <tr *ngFor="let row of areas | actStatusPipe: {name : search, active: search} : false ; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{row.name}}</td>
                 <td>{{row.active | active }}</td>

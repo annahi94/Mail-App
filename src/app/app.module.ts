@@ -27,6 +27,7 @@ import { ActivePipe } from './pipes/active-pipe';
 import { InverseActivePipe } from './pipes/inverse-active.pipe';
 
 import { MainPipeModule } from './main-pipe/main-pipe.module';
+import { FilterTablePipe } from './pipes/filter-table';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MainPipeModule } from './main-pipe/main-pipe.module';
     HeadersComponent,
     AreaComponent,
     ActivePipe,
-    InverseActivePipe    
+    InverseActivePipe,
+    FilterTablePipe
   ],
   imports: [
     BrowserModule,
