@@ -19,7 +19,8 @@ export class FacturaService {
   
   constructor(private http: HttpClient) { }
 
-  private facturasURL = 'http://localhost:56639/api/Factura';
+  // private facturasURL = 'http://localhost:56639/api/Factura';
+  private facturasURL = 'http://localhost:59604/api/Factura';
   
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -28,11 +29,9 @@ export class FacturaService {
     }
   }
 
-  getFacturas(): Observable<Factura[]> {
-    return this.http.get<Factura[]>(this.facturasURL)
-      .pipe(tap(facturas => console.log('Fetched facturas!')),
-        catchError(this.handleError('getFacturas', []))
-      );
+  getFacturas(): Observable<Array<Factura>> {
+    return this.http.get<Array<Factura>>(this.facturasURL)
+    .pipe(tap(facturas => console.log('Fetched facturas!')),catchError(this.handleError('getFacturas', [])));
   }
 
   getFactura(id: number): Observable<Factura> {

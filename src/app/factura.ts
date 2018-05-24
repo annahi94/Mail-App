@@ -1,9 +1,11 @@
 export class Factura {
-    facturaId: number;
+    id: number;
+    area_id: number;
     cnpj: string;
-    po: string;
-    noNote: string;
-    totalValue: string;
     emissionDate: string;
+    noNote: string;
     noteType: string;
+    po: string;
+    pdfPath: any;
+    totalValue: string
 }
