@@ -13,9 +13,12 @@ export class HeadersComponent implements OnInit {
   @Input() menu: Menu;
 
 
-  currentURL='';
+  
+  setWidht(menu) {
+    
+  }
+
   constructor() {
-    this.currentURL = window.location.pathname;
     
   }
 
