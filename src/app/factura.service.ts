@@ -28,11 +28,9 @@ export class FacturaService {
     }
   }
 
-  getFacturas(): Observable<Factura[]> {
-    return this.http.get<Factura[]>(this.facturasURL)
-      .pipe(tap(facturas => console.log('Fetched facturas!')),
-        catchError(this.handleError('getFacturas', []))
-      );
+  getFacturas(): Observable<Array<Factura>> {
+    return this.http.get<Array<Factura>>(this.facturasURL)
+    .pipe(tap(facturas => console.log('Fetched facturas!')),catchError(this.handleError('getFacturas', [])));
   }
 
   getFactura(id: number): Observable<Factura> {
@@ -44,7 +42,6 @@ export class FacturaService {
   }
 
   updateFactura(factura): Observable<any> {
-    debugger
     return this.http.put(this.facturasURL+`/${factura.facturaId}`, factura, httpOptions).pipe(
       tap(_ => console.log(`Updated factura of id ${factura.facturaId}!`)),
       catchError(this.handleError<any>('updateFactura'))

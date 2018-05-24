@@ -1,41 +1,45 @@
-<table class="table table-hover" [@flyInOut]>
-  <thead>
-    <tr>
-      <th>No.</th>
-      <th>CNPJ</th>
-      <th>PO</th>
-      <th>No. Note</th>
-      <th>Total Value</th>
-      <th>Emission Date</th>
-      <th>Note Type</th>
-      <th>Invoice</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let factura of facturas; let i = index">
-      <tr *ngIf="invoiceIndex === -1 ? true : i+1 === invoiceIndex" (click)="onSelectFactura(factura)">
-        <td>{{i + 1}}</td>
-        <td>{{ factura.cnpj }}</td>
-        <td>
-          <input type="text" [(ngModel)]="factura.po" class="form-control">
-        </td>
-        <td>{{ factura.noNote }}</td>
-        <td>${{ factura.totalValue}}</td>
-        <td>{{ factura.emissionDate }}</td>
-        <td>
-          <input type="text" [(ngModel)]="factura.noteType" class="form-control">
-        </td>
-        <td>
-          <button type="button" class="btn btn-danger" (click)="showPdf(factura.pdfPath, i)">
-            <i class="glyphicon glyphicon-eye-open"></i> PDF View
-          </button>
-        </td>
-        <td>
-          <button type="button" (click)="save(factura)" class="btn btn-info btn-block">Save</button>
-        </td>
+<div id="scrollingDiv">
+  <table class="table table-hover" [@flyInOut]>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>CNPJ</th>
+        <th>PO</th>
+        <th>No. Note</th>
+        <th>Total Value</th>
+        <th>Emission Date</th>
+        <th>Note Type</th>
+        <th>Invoice</th>
+        <th>Action</th>
       </tr>
-    </ng-container>
-  </tbody>
-</table>
-<pdf-viewer *ngIf="invoiceIndex !== -1" [src]="pdf" [original-size]="true" [show-all]="true"></pdf-viewer>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let factura of facturas; let i = index">
+        <tr *ngIf="invoiceIndex === -1 ? true : i+1 === invoiceIndex">
+          <td>{{i + 1}}</td>
+          <td>{{ factura.cnpj }}</td>
+          <td>
+            <input type="text" [(ngModel)]="factura.po" class="form-control">
+          </td>
+          <td>{{ factura.noNote }}</td>
+          <td>${{ factura.totalValue}}</td>
+          <td>{{ factura.emissionDate }}</td>
+          <td>
+            <input type="text" [(ngModel)]="factura.noteType" class="form-control">
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="showPdf(factura.pdfPath, i)">
+              <i class="glyphicon glyphicon-eye-open"></i> PDF View
+            </button>
+          </td>
+          <td>
+            <button type="button" (click)="save(factura)" class="btn btn-info btn-block">Save</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+<div>
+  <pdf-viewer *ngIf="invoiceIndex !== -1" [src]="pdf" [original-size]="true" [show-all]="true"></pdf-viewer>
+</div>
