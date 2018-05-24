@@ -35,7 +35,6 @@ export class FacturasComponent implements OnInit {
 
   private connection: any;
   private proxy: any;
-  private ulr: any;
   public facturas: Array<Factura>;
   invoiceIndex: Number = -1;
   pdf: Uint8Array;
@@ -63,8 +62,10 @@ export class FacturasComponent implements OnInit {
     });
 
     this.proxy.on('SendInvoice', (data: any) => {
+      debugger;
       this.facturas.push(data);
       this.changeDetectorRefs.detectChanges();
+      this.changeDetectorRefs.markForCheck();
     });
   }
 
@@ -87,8 +88,9 @@ export class FacturasComponent implements OnInit {
   }
 
   getFacturas(): void {
-    this.facturaService.getFacturas().subscribe((facturas: any) => {
+    this.facturaService.getFacturas().subscribe((facturas: Array<Factura>) => {
       this.facturas = facturas;
+      console.log(this.facturas);
     });
   }
 
