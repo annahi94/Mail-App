@@ -1,18 +1,13 @@
-import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ChangeDetectorRef, Pipe, TemplateRef } from '@angular/core';
 import { Factura } from '../factura';
 import { FacturaService } from '../factura.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
-declare var $: any;
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
 import { debounceTime } from 'rxjs/operators';
+import { trigger, state, style, animate, transition }from '@angular/animations';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+declare var $: any;
 
 @Component({
   selector: 'app-facturas',
@@ -32,17 +27,22 @@ import { debounceTime } from 'rxjs/operators';
   ]
 })
 
+@Pipe({
+  name: 'actStatusPipe'
+})
+
 export class FacturasComponent implements OnInit {
 
   private connection: any;
   private proxy: any;
   private ulr: any;
-
   public facturas: Array<Factura>;
   invoiceIndex: Number = -1;
   pdf: Uint8Array;
+  facturaSelected: Factura[];
+  modalRef: BsModalRef;
 
-  constructor(private facturaService: FacturaService, private toastr: ToastsManager, private _vcr: ViewContainerRef, private http: Http, private changeDetectorRefs: ChangeDetectorRef) {
+  constructor(private facturaService: FacturaService, private toastr: ToastsManager, private _vcr: ViewContainerRef, private http: Http, private changeDetectorRefs: ChangeDetectorRef, private modalService: BsModalService) {
     this.toastr.setRootViewContainerRef(_vcr);
   }
 
@@ -68,33 +68,11 @@ export class FacturasComponent implements OnInit {
     });
   }
 
-  // onSelectFactura(factura) {
-  //   this.facturaService.getFactura(factura.facturaId).subscribe((factura : any) => {
-  //     console.log(factura);
-  //   });
-  // }
-
-  ngOnInit() {
-    this.getFacturas();
-    this.startConnection();
-    this.registerOnServerEvents();
-
-  }
-
-  getFacturas(): void {
-    this.facturaService.getFacturas().subscribe((facturas : any) => {
-      this.facturas = facturas;
-    });
-  }
-
-  save(factura): void {
-    this.facturaService.updateFactura(factura)
-      .subscribe(() => console.log('Factura saved!!'));
-    this.toastr.success('Note saved!!');
-  }
-
-  showPdf(bytePdf, currentInvoice): void {
-    this.invoiceIndex === -1 ? (this.invoiceIndex = currentInvoice + 1, this.pdf = this.convertDataURIToBinary(bytePdf)) : (this.invoiceIndex = -1, this.pdf = new Uint8Array(0));
+  clearPdf(array: Uint8Array) {
+    while (array.length > 0) {
+      array;
+    }
+    return array;
   }
 
   convertDataURIToBinary(dataURI: string) {
@@ -106,5 +84,32 @@ export class FacturasComponent implements OnInit {
       array[i] = raw.charCodeAt(i);
     }
     return array;
+  }
+
+  getFacturas(): void {
+    this.facturaService.getFacturas().subscribe((facturas: any) => {
+      this.facturas = facturas;
+    });
+  }
+
+  save(facturaSelected): void {
+    this.facturaService.updateFactura(facturaSelected)
+      .subscribe(() => this.toastr.success('Note saved!!'));
+    this.modalRef.hide()
+  }
+
+  openModal(template: TemplateRef<any>, factura: Factura[]) {
+    this.facturaSelected = factura;
+    this.modalRef = this.modalService.show(template);
+  }
+
+  showPdf(bytePdf, currentInvoice): void {
+    this.invoiceIndex === -1 ? (this.invoiceIndex = currentInvoice + 1, this.pdf = this.convertDataURIToBinary(bytePdf)) : (this.invoiceIndex = -1, this.pdf = new Uint8Array(0));
+  }
+
+  ngOnInit() {
+    this.getFacturas();
+    this.startConnection();
+    this.registerOnServerEvents();
   }
 }

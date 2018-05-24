@@ -19,7 +19,7 @@ export class FacturaService {
   
   constructor(private http: HttpClient) { }
 
-  private facturasURL = 'http://localhost:59604/api/Factura';
+  private facturasURL = 'http://localhost:56639/api/Factura';
   
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -41,7 +41,7 @@ export class FacturaService {
     );
   }
 
-  updateFactura(factura): Observable<any> {
+  updateFactura(factura: Factura): Observable<any> {    
     return this.http.put(this.facturasURL+`/${factura.facturaId}`, factura, httpOptions).pipe(
       tap(_ => console.log(`Updated factura of id ${factura.facturaId}!`)),
       catchError(this.handleError<any>('updateFactura'))

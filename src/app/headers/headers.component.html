@@ -1,11 +1,14 @@
 <div class="row" class="text-center pb-5" *ngIf="menu">
   <div class="col-xs-3">
-    <img [src]="headers[menu.id].logoPath" class="logo-size" alt="">
+    <img 
+    [src]="menu.header.logoPath" 
+    alt="">
   </div>
   <div class="col-xs-6">
-    <h1>{{ headers[menu.id].title }}</h1>
+    <h1>{{ menu.header.title }}</h1>
   </div>
   <div class="col-xs-3">
-    <img [src]="headers[menu.id].logoPath" class="logo-size" alt="">
+    <img [src]="menu.header.logoPath" alt="">
   </div>
 </div>
+

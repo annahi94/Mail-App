@@ -43,3 +43,110 @@
 <div>
   <pdf-viewer *ngIf="invoiceIndex !== -1" [src]="pdf" [original-size]="true" [show-all]="true"></pdf-viewer>
 </div>
+<div class="row">
+  <div class="col-sm-3 " >
+    <div class="input-group">
+      <input id="search" type="text" class="form-control" placeholder="Search" [(ngModel)]="search">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+  </div>
+  </div>
+</div>
+
+<table id="myTable" class="table table-hover" [@flyInOut]>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>CNPJ</th>
+      <th>PO</th>
+      <th>No. Note</th>
+      <th>Total Value</th>
+      <th>Emission Date</th>
+      <th>Note Type</th>
+      <th>Invoice</th>
+      <th class="text-center">Edit Invoice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let factura of facturas | actStatusPipe: {cnpj: search, po:search, noNote:search, totalValue:search, totalValue:search, emissionDate:search, noteType:search} : false; let i = index">
+      <tr *ngIf="invoiceIndex === -1 ? true : i+1 === invoiceIndex" >
+        <td>{{i + 1}}</td>
+        <td>{{ factura.cnpj }}</td>
+        <td>{{ factura.po }}</td>
+        <!--<td>
+          <input type="text" [(ngModel)]="factura.po" class="form-control">
+        </td>-->
+        <td>{{ factura.noNote }}</td>
+        <td>${{ factura.totalValue}}</td>
+        <td>{{ factura.emissionDate }}</td>
+        <td>{{ factura.noteType }}</td>
+        <!--<td>
+          <input type="text" [(ngModel)]="factura.noteType" class="form-control">
+        </td>-->
+        <td>
+          <button type="button" class="btn btn-danger" (click)="showPdf(factura.pdfPath, i)">
+            <i class="glyphicon glyphicon-eye-open"></i> PDF View
+          </button>
+        </td>
+        <td class="text-center">
+          <button class="btn btn-primary" (click)="openModal(template, factura, i)">
+            <i class="glyphicon glyphicon-edit fa-lg"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<pdf-viewer *ngIf="invoiceIndex !== -1" [src]="pdf" [original-size]="true" [show-all]="true"></pdf-viewer>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <i class="glyphicon glyphicon-edit"></i> Modify Invoice</h4>
+    <button #btnClose type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="facturaSelected">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label >CNPJ:</label>
+          <input type="text" [(ngModel)]="facturaSelected.cnpj" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label >No.Note:</label>
+          <input type="text" [(ngModel)]="facturaSelected.noNote" class="form-control">
+        </div>
+        <div class="form-group">
+          <label >Emission Date:</label>
+          <input type="text" [(ngModel)]="facturaSelected.emissionDate" class="form-control">
+          <!--<input type="text" [(ngModel)]="facturaSelected.emissionDate"
+            class="form-control"
+            [minDate]="minDate"
+            [maxDate]="maxDate"
+            #dp="bsDatepicker"
+            bsDatepicker>-->
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label >PO:</label>
+          <input type="text" [(ngModel)]="facturaSelected.po" class="form-control">
+        </div>
+        <div class="form-group">
+          <label >Total Value:</label>
+          <input type="text" [(ngModel)]="facturaSelected.totalValue" class="form-control">
+        </div>
+        <div class="form-group">
+          <label >Note Type:</label>
+          <input type="text" [(ngModel)]="facturaSelected.noteType" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <button  type="button" (click)="save(facturaSelected)" class="btn btn-info btn-block">Update</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
