@@ -21,8 +21,8 @@ export class AreaSevice {
     constructor(private http: HttpClient) {
 
     }
-
-    private url = 'http://localhost:54763/api/Area';
+    
+    private url = 'http://localhost:54673/api/Area';
     //private url = 'api/areas';
 
     private handleError<T>(operation = 'operation', result?: T) {
@@ -41,7 +41,6 @@ export class AreaSevice {
     }
 
     addArea(area: Area): Observable<Area> {
-        debugger
         return this.http.post<Area>(this.url, area, httpOptions)
             .pipe(
                 tap((area: Area) => console.log(`Added area of id ${area.id}!`)),

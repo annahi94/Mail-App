@@ -18,9 +18,11 @@ import { ProductService } from './product.service';
 import { ProductsComponent } from './products/products.component';
 import { AreaComponent } from './area/area.component';
 import { Area } from './area/area.model';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AreaSevice } from './services/area.service';
+import { ActivePipe } from './pipes/active-pipe';
+import { InverseActivePipe } from './pipes/inverse-active.pipe';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { AreaSevice } from './services/area.service';
     FacturasComponent,
     FacturaDetailComponent,
     HeadersComponent,
-    AreaComponent    
+    AreaComponent,
+    ActivePipe,
+    InverseActivePipe
   ],
   imports: [
     BrowserModule,
@@ -43,6 +47,7 @@ import { AreaSevice } from './services/area.service';
     HttpModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     ReactiveFormsModule,
     //HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
