@@ -1,10 +1,20 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, Pipe } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Area } from './area.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AreaSevice } from '../services/area.service';
+
+@Pipe({
+    name: 'active',
+    pure: false
+})
+
+@Pipe({
+    name: 'inverseActive',
+    pure: false
+})
 
 @Component({
     selector: 'area',
@@ -29,7 +39,7 @@ export class AreaComponent implements OnInit {
     noDataFound: String = 'No data found!';
     modalArea: BsModalRef;
     areas: Area[] = [];
-    area: Area = new Area(0, '');
+    area: Area = new Area(0, '', true);    
     actionSelected: number;
     actionTitle = {
         NONE: '',
@@ -52,10 +62,20 @@ export class AreaComponent implements OnInit {
         this.getAreas();
     }
 
-    openModal(template: TemplateRef<any>, action: number) {
+    openModal(template: TemplateRef<any>, action: number, selectedArea?: Area) {
         this.actionSelected = action;
         this.modalArea = this.modalService.show(template);
-        this.reset();
+
+        if (this.actionSelected === this.actionEnum.ADD)
+            this.reset();
+        else if(this.actionSelected === this.actionEnum.EDIT)
+            this.setFields(selectedArea);
+        else
+            this.reset();
+    }    
+
+    setFields(selectedArea: Area) {        
+        this.area = Object.assign({}, selectedArea);
     }
 
     getAreas() {
@@ -65,14 +85,25 @@ export class AreaComponent implements OnInit {
     }
 
     reset(): void {
-        this.area = new Area(0, '');
-    }    
+        this.area = new Area(0, '', true);
+    }
 
-    addArea() {
-        this.area.id = 0;
+    activateOrDeactivate(row: Area)
+    {
+        this.area = Object.assign({}, row);
+        this.area.active = !this.area.active;
+        
         this.areaService.addArea(this.area)
             .subscribe(area => {
-                this.areas.push(area);
+                this.getAreas();
+                this.modalArea.hide();
+            });
+    }
+
+    addArea() {
+        this.areaService.addArea(this.area)
+            .subscribe(area => {                
+                this.getAreas();
                 this.modalArea.hide();
             });
     }

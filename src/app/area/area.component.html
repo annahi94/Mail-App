@@ -4,7 +4,7 @@
             <input type="text" class="form-control" placeholder="Buscar...">
         </div>
         <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="openModal(template, actionEnum.ADD)">
+            <button class="btn btn-primary" (click)="openModal(templateArea, actionEnum.ADD)" tooltip="Add">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
@@ -12,14 +12,25 @@
     <table class="table table-hover" [@flyInOut]>
         <thead>
             <tr>
-                <th>No.</th>
-                <th>Nombre</th>
+                <th class="col-xs-1">No.</th>
+                <th class="col-xs-8">Name</th>
+                <th class="col-xs-2">Active</th>
+                <th class="col-xs-1">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let row of areas; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{row.name}}</td>
+                <td>{{row.active | active }}</td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="openModal(templateArea, actionEnum.EDIT, row)">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary" tooltip="{{row.active | inverseActive}}" (click)="activateOrDeactivate(row)">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -28,7 +39,7 @@
     </div>
 </div>
 
-<ng-template #template>
+<ng-template #templateArea>
     <form #frmArea="ngForm" (ngSubmit)="onSubmit()">
         <div class="modal-header">
             <h4 class="modal-title pull-left">

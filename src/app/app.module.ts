@@ -15,18 +15,16 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FacturaService } from './factura.service';
 import { FacturasComponent } from './facturas/facturas.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
 import { HeadersComponent } from './headers/headers.component';
-
-import { ModalModule } from 'ngx-bootstrap';
-
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductService } from './product.service';
 import { ProductsComponent } from './products/products.component';
-
 import { Area } from './area/area.model';
+import { ModalModule, TooltipModule } from 'ngx-bootstrap';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AreaSevice } from './services/area.service';
+import { ActivePipe } from './pipes/active-pipe';
+import { InverseActivePipe } from './pipes/inverse-active.pipe';
 
 import { MainPipeModule } from './main-pipe/main-pipe.module';
 
@@ -37,7 +35,9 @@ import { MainPipeModule } from './main-pipe/main-pipe.module';
     ProductDetailComponent,
     FacturasComponent,
     HeadersComponent,
-    AreaComponent
+    AreaComponent,
+    ActivePipe,
+    InverseActivePipe    
   ],
   imports: [
     BrowserModule,
@@ -49,6 +49,7 @@ import { MainPipeModule } from './main-pipe/main-pipe.module';
     HttpModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     ReactiveFormsModule,
     MainPipeModule
     //HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
