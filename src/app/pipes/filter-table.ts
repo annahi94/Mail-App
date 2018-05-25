@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { ExecSyncOptionsWithBufferEncoding } from "child_process";
 
 @Pipe({
     name: 'filterTable',

@@ -11,7 +11,6 @@ export class ActStatusPipe implements PipeTransform {
   }*/
 
   transform(items: any, filter: any, isAnd: boolean): any {
-    debugger
     if (filter && Array.isArray(items)) {
       let filterKeys = Object.keys(filter);
       if (isAnd) {
