@@ -14,13 +14,17 @@ export class AppComponent {
   selectedMenu: Menu;
   currentURL: string = '';
   menus: Menu[] = [
-    new Menu(0, '/', 'Home', new Header(0, 'Home', '../assets/images/GE-logo.png')),
-    new Menu(1, '/healthcare', 'Health Care', new Header(1, 'Health Care', '../assets/images/GE-healthcare.png')),
-    new Menu(1, '/area', 'Area', new Header(1, 'Area', '../assets/images/GE-healthcare.png'))
+    new Menu('/', 'Home', new Header('Home', '../assets/images/GE-logo.png'), false, null),
+    new Menu('/healthcare', 'Health Care', new Header('Health Care', '../assets/images/GE-healthcare.png'), false, null),
+    new Menu(null, 'Catalogs', null, true, [
+      new Menu('/area', 'Area', new Header('Area', '../assets/images/GE-healthcare.png'), false, null)      
+    ])    
   ]
+
 
   constructor() {
     this.currentURL = window.location.pathname;
+    console.log(this.menus);
   }
 
   ngOnInit() {

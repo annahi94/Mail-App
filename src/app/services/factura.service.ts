@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Factura } from './factura';
+import { Factura } from '../factura';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
@@ -19,9 +19,14 @@ export class FacturaService {
   
   constructor(private http: HttpClient) { }
 
+<<<<<<< HEAD:src/app/factura.service.ts
   // private facturasURL = 'http://localhost:56639/api/Factura';
   // private facturasURL = 'http://localhost:59604/api/Factura';
   private facturasURL = 'http://localhost:50192/api/Invoice';
+=======
+   private facturasURL = 'http://localhost:56639/api/Factura';
+  //private facturasURL = 'http://localhost:59604/api/Factura';
+>>>>>>> eceb1bfafd85e177f71ec8c31d3bd23753b270c9:src/app/services/factura.service.ts
   
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -22,9 +22,7 @@ export class AreaSevice {
 
     }
     
-    //private url = 'http://localhost:54673/api/Area';
-    private url = 'http://localhost:50192/api/Area';
-    //private url = 'api/areas';
+    private url = 'http://localhost:50192/api/Area'
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {

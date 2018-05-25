@@ -1,10 +1,8 @@
 export class Header {
-    id: number;
     title: string;
     logoPath: string;
 
-    constructor(id: number, title: string, logoPath: string) {
-        this.id = id;
+    constructor(title: string, logoPath: string) {
         this.title = title;
         this.logoPath = logoPath;
     }

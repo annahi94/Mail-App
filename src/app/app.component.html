@@ -1,6 +1,5 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<nav class="navbar navbar-inverse">
-  <!-- Brand and toggle get grouped for better mobile display -->
+<nav class="navbar navbar-inverse borderNavBar">
+
   <div class="navbar-header">
     <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
       <span class="sr-only">Toggle navigation</span>
@@ -8,34 +7,26 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a href="#" class="navbar-brand">Mailbox</a>
+    <a href="#" class="navbar-brand"><img src="../assets/images/GE-logo3.png" alt="" style="
+      margin-top: -25px;"></a>    
   </div>
-  <!-- Collection of nav links, forms, and other content for toggling -->
+
   <div id="navbarCollapse" class="collapse navbar-collapse">
-    <ul class="nav navbar-nav" >
-      <li *ngFor="let menu of menus">
-        <a (click)="onSelectMenu(menu)" [routerLink]="menu.routerLink">{{ menu.title }}</a>
+    <ul class="nav navbar-nav" *ngFor="let menu of menus">
+      <li>
+        <a *ngIf="!menu.parent" (click)="onSelectMenu(menu)" [routerLink]="menu.routerLink">{{ menu.title }}</a>
       </li>
-      <!--<li class="dropdown">
-        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Messages
-          <b class="caret"></b>
+      <li class="dropdown" *ngIf="menu.parent">
+        <a class="dropdown-toggle" [routerLink]="menu.routerLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ menu.title }}&nbsp;
+          <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li>
-            <a href="#">Inbox</a>
-          </li>
-          <li>
-            <a href="#">Drafts</a>
-          </li>
-          <li>
-            <a href="#">Sent Items</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="#">Trash</a>
-          </li>
+            <li *ngFor="let child of menu.childs; let i = index;" class="subMenu">
+              <a [routerLink]="child.routerLink" (click)="onSelectMenu(child)">{{ child.title }}</a>              
+              <div *ngIf="i < (menu.childs.length -1)" class="divider"></div>
+            </li>            
         </ul>
-      </li>-->
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li>
@@ -49,8 +40,13 @@
   <app-headers [menu]="selectedMenu"></app-headers>
   <div class="row">
     <div class="col-xs-12">
-        <hr>
+<<<<<<< HEAD
+        <!-- <hr> -->
         <router-outlet></router-outlet>
+=======
+      <hr>
+      <router-outlet></router-outlet>
+>>>>>>> 471ea5ab49be5fc07a8d3a45ff24455e2c119722
     </div>
   </div>
 </div>
