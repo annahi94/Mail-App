@@ -22,7 +22,8 @@ export class AreaSevice {
 
     }
     
-    private url = 'http://localhost:54673/api/Area';
+    //private url = 'http://localhost:54673/api/Area';
+    private url = 'http://localhost:56639/api/Area';
     //private url = 'api/areas';
 
     private handleError<T>(operation = 'operation', result?: T) {
