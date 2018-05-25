@@ -58,7 +58,6 @@ export class FacturasComponent implements OnInit {
     });
 
     this.proxy.on('SendInvoice', (data: any) => {
-      debugger;
       this.facturas.push(data);
       this.changeDetectorRefs.detectChanges();
       this.changeDetectorRefs.markForCheck();
