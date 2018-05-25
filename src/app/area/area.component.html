@@ -1,43 +1,48 @@
-<div>
-    <div class="row pull-right">
-        <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="Buscar...">
-        </div>
-        <div class="col-sm-2">
-            <button class="btn btn-primary" (click)="openModal(templateArea, actionEnum.ADD)" tooltip="Add">
-                <i class="fa fa-plus"></i>
-            </button>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <input type="text" [(ngModel)]="search" class="form-control" placeholder="Search...">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
         </div>
     </div>
-    <table class="table table-hover" [@flyInOut]>
-        <thead>
-            <tr>
-                <th class="col-xs-1">No.</th>
-                <th class="col-xs-8">Name</th>
-                <th class="col-xs-2">Active</th>
-                <th class="col-xs-1">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let row of areas; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{row.name}}</td>
-                <td>{{row.active | active }}</td>
-                <td>
-                    <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="openModal(templateArea, actionEnum.EDIT, row)">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-primary" tooltip="{{row.active | inverseActive}}" (click)="activateOrDeactivate(row)">
-                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="row" *ngIf="areas.length === 0" style="text-align: center">
-        <h3>{{noDataFound}}</h3>
+    <div class="col-sm-1 pull-right">
+        <button class="btn btn-primary" (click)="openModal(templateArea, actionEnum.ADD)" tooltip="Add">
+            <i class="fa fa-plus"></i>
+        </button>
     </div>
 </div>
+<hr />
+<table class="table table-hover" [@flyInOut]>
+    <thead>
+        <tr>
+            <th class="col-xs-1">No.</th>
+            <th class="col-xs-8">Name</th>
+            <th class="col-xs-2">Active</th>
+            <th class="col-xs-1">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of areas | actStatusPipe: {name : search, active: search} : false ; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{row.name}}</td>
+            <td [ngClass]="{'deactivate': !row.active}">{{row.active | active }}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="openModal(templateArea, actionEnum.EDIT, row)">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-primary" tooltip="{{row.active | inverseActive}}" (click)="activateOrDeactivate(row)">
+                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="row" *ngIf="areas.length === 0" style="text-align: center">
+    <h3>{{noDataFound}}</h3>
+</div>
+
 
 <ng-template #templateArea>
     <form #frmArea="ngForm" (ngSubmit)="onSubmit()">

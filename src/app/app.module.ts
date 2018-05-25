@@ -32,7 +32,7 @@ import { FacturaService } from './services/factura.service';
     HeadersComponent,
     AreaComponent,
     ActivePipe,
-    InverseActivePipe    
+    InverseActivePipe
   ],
   imports: [
     BrowserModule,

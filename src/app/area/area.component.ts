@@ -6,16 +6,6 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AreaSevice } from '../services/area.service';
 
-@Pipe({
-    name: 'active',
-    pure: false
-})
-
-@Pipe({
-    name: 'inverseActive',
-    pure: false
-})
-
 @Component({
     selector: 'area',
     templateUrl: './area.component.html',
@@ -36,6 +26,7 @@ import { AreaSevice } from '../services/area.service';
 
 export class AreaComponent implements OnInit {
 
+    search: string = '';
     noDataFound: String = 'No data found!';
     modalArea: BsModalRef;
     areas: Area[] = [];
@@ -92,7 +83,7 @@ export class AreaComponent implements OnInit {
     {
         this.area = Object.assign({}, row);
         this.area.active = !this.area.active;
-        
+
         this.areaService.addArea(this.area)
             .subscribe(area => {
                 this.getAreas();

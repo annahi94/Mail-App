@@ -1,0 +1,10 @@
+
+
+.subMenu a:hover {  
+  font-style: italic;    
+  color: black; 
+}
+
+.borderNavBar {
+    border-radius: 0px;
+}
