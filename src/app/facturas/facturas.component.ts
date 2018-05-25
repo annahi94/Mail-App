@@ -46,7 +46,7 @@ export class FacturasComponent implements OnInit {
   }
 
   public startConnection(): void {
-    this.connection = $.hubConnection('http://localhost:52996/signalr');
+    this.connection = $.hubConnection('http://localhost:50192/signalr');
     this.proxy = this.connection.createHubProxy('FacturaHub');
 
     this.connection.start().done((data: any) => {

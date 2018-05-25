@@ -21,8 +21,8 @@
         <tbody>
             <tr *ngFor="let row of areas; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{row.name}}</td>
-                <td>{{row.active | active }}</td>
+                <td>{{row.Name}}</td>
+                <td>{{row.Active | active }}</td>
                 <td>
                     <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="openModal(templateArea, actionEnum.EDIT, row)">
                         <i class="fa fa-edit" aria-hidden="true"></i>
