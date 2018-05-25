@@ -43,7 +43,7 @@ export class AreaSevice {
     addArea(area: Area): Observable<Area> {
         return this.http.post<Area>(this.url, area, httpOptions)
             .pipe(
-                tap((area: Area) => console.log(`Added area of id ${area.id}!`)),
+                tap((area: Area) => console.log(`Added area of id ${area.Id}!`)),
                 catchError(this.handleError<Area>('addArea'))
             )
     }

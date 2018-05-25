@@ -22,22 +22,16 @@
     </tr>
   </thead>
   <tbody>
-      <!-- <ng-container *ngFor="let factura of facturas; let i = index"> -->
-    <ng-container *ngFor="let factura of facturas | actStatusPipe: {cnpj: search, po:search, noNote:search, totalValue:search, totalValue:search, emissionDate:search, noteType:search} : false; let i = index">
+      <ng-container *ngFor="let factura of facturas; let i = index">
+    <!-- <ng-container *ngFor="let factura of facturas | actStatusPipe: {cnpj: search, po:search, noNote:search, totalValue:search, totalValue:search, emissionDate:search, noteType:search} : false; let i = index"> -->
       <tr *ngIf="invoiceIndex === -1 ? true : i+1 === invoiceIndex" >
         <td>{{i + 1}}</td>
         <td>{{ factura.cnpj }}</td>
         <td>{{ factura.po }}</td>
-        <!--<td>
-          <input type="text" [(ngModel)]="factura.po" class="form-control">
-        </td>-->
         <td>{{ factura.noNote }}</td>
         <td>${{ factura.totalValue}}</td>
         <td>{{ factura.emissionDate }}</td>
         <td>{{ factura.noteType }}</td>
-        <!--<td>
-          <input type="text" [(ngModel)]="factura.noteType" class="form-control">
-        </td>-->
         <td>
           <button type="button" class="btn btn-danger" (click)="showPdf(factura.pdfPath, i)">
             <i class="glyphicon glyphicon-eye-open"></i> PDF View
@@ -57,7 +51,7 @@
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">
-      <i class="glyphicon glyphicon-edit"></i> Modify Invoice</h4>
+      <i class="glyphicon glyphicon-edit"></i> Modify Invoice: {{ facturaSelected.cnpj }}</h4>
     <button #btnClose type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
