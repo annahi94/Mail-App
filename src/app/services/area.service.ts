@@ -25,6 +25,7 @@ export class AreaSevice {
     private url = 'http://localhost:50192/api/Area';
     //private url = 'api/areas';
 
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error, `Operation: ${operation}`);
