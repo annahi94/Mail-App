@@ -87,7 +87,6 @@ export class AreaComponent implements OnInit {
         this.areaService.addArea(this.area)
             .subscribe(area => {
                 this.getAreas();
-                this.modalArea.hide();
             });
     }
 
