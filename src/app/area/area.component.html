@@ -26,8 +26,8 @@
     <tbody>
         <tr *ngFor="let row of areas | actStatusPipe: {name : search, active: search} : false ; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{row.name}}</td>
-            <td [ngClass]="{'deactivate': !row.active}">{{row.active | active }}</td>
+            <td>{{row.Name}}</td>
+            <td [ngClass]="{'deactivate': !row.active}">{{row.Active | active }}</td>
             <td>
                 <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="openModal(templateArea, actionEnum.EDIT, row)">
                     <i class="fa fa-edit" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label>Name</label>
-                    <input type="text" class="form-control" name="name" [(ngModel)]="area.name" required/>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="area.Name" required/>
                 </div>
             </div>
         </div>

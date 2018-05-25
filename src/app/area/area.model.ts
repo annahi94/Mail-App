@@ -1,11 +1,11 @@
 export class Area {
-    id?: number;
-    name?: string;    
-    active?: boolean;
+    Id?: number;
+    Name?: string;    
+    Active?: boolean;
 
     constructor(id?: number, name?: string, active?: boolean) {
-        this.id = id;
-        this.name = name;
-        this.active = active; 
+        this.Id = id;
+        this.Name = name;
+        this.Active = active; 
     }
 }

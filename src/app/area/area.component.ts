@@ -82,7 +82,7 @@ export class AreaComponent implements OnInit {
     activateOrDeactivate(row: Area)
     {
         this.area = Object.assign({}, row);
-        this.area.active = !this.area.active;
+        this.area.Active = !this.area.Active;
 
         this.areaService.addArea(this.area)
             .subscribe(area => {
