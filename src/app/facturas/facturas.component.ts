@@ -4,6 +4,8 @@ import { Http } from '@angular/http';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Factura } from '../factura';
 import { FacturaService } from '../services/factura.service';
 declare var $: any;
@@ -36,9 +38,21 @@ export class FacturasComponent implements OnInit {
   pdf: Uint8Array;
   facturaSelected: Factura[];
   modalRef: BsModalRef;
+  reloading: BehaviorSubject<boolean>;
 
-  constructor(private facturaService: FacturaService, private toastr: ToastsManager, private _vcr: ViewContainerRef, private http: Http, private changeDetectorRefs: ChangeDetectorRef, private modalService: BsModalService) {
+  constructor(
+    private facturaService: FacturaService
+    , private toastr: ToastsManager
+    , private _vcr: ViewContainerRef
+    , private http: Http
+    , private changeDetectorRefs: ChangeDetectorRef
+    , private modalService: BsModalService) {
     this.toastr.setRootViewContainerRef(_vcr);
+    this.reloading = new BehaviorSubject<boolean>(false);
+  }
+
+  get reloading$(): Observable<boolean> {
+    return this.reloading.asObservable();
   }
 
   public startConnection(): void {
@@ -61,6 +75,7 @@ export class FacturasComponent implements OnInit {
       this.facturas.push(data);
       this.changeDetectorRefs.detectChanges();
       this.changeDetectorRefs.markForCheck();
+      //this.getFacturas();
     });
   }
 
