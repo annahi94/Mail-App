@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'actStatusPipe'
+  name: 'actStatusPipe',
+  pure: false
 })
 export class ActStatusPipe implements PipeTransform {
 
