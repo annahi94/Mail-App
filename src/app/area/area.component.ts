@@ -1,10 +1,13 @@
-import { Component, OnInit, TemplateRef, Pipe } from '@angular/core';
+import { Component, OnInit, TemplateRef, Pipe, ViewContainerRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Area } from './area.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AreaSevice } from '../services/area.service';
+import { AlertComponent } from 'ngx-bootstrap';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { error } from 'util';
 
 @Component({
     selector: 'area',
@@ -28,9 +31,13 @@ export class AreaComponent implements OnInit {
 
     search: string = '';
     noDataFound: String = 'No data found!';
+    messages = {
+        SUCCESSFUL_OPERATION: 'Successful operation',
+        ERROR: 'Error - please contact the administrator'
+    }
     modalArea: BsModalRef;
     areas: Area[] = [];
-    area: Area = new Area(0, '', true);    
+    area: Area = new Area(0, '', true);
     actionSelected: number;
     actionTitle = {
         NONE: '',
@@ -46,7 +53,10 @@ export class AreaComponent implements OnInit {
     }
 
     constructor(private modalService: BsModalService,
-        private areaService: AreaSevice) {
+        private areaService: AreaSevice,
+        private alert: ToastsManager,
+        private container: ViewContainerRef) {
+        alert.setRootViewContainerRef(container);
     }
 
     ngOnInit() {
@@ -59,13 +69,13 @@ export class AreaComponent implements OnInit {
 
         if (this.actionSelected === this.actionEnum.ADD)
             this.reset();
-        else if(this.actionSelected === this.actionEnum.EDIT)
+        else if (this.actionSelected === this.actionEnum.EDIT)
             this.setFields(selectedArea);
         else
             this.reset();
-    }    
+    }
 
-    setFields(selectedArea: Area) {        
+    setFields(selectedArea: Area) {
         this.area = Object.assign({}, selectedArea);
     }
 
@@ -79,23 +89,32 @@ export class AreaComponent implements OnInit {
         this.area = new Area(0, '', true);
     }
 
-    activateOrDeactivate(row: Area)
-    {
+    activateOrDeactivate(row: Area) {
         this.area = Object.assign({}, row);
         this.area.Active = !this.area.Active;
 
         this.areaService.addArea(this.area)
             .subscribe(area => {
                 this.getAreas();
+                this.alert.success(this.messages.SUCCESSFUL_OPERATION);
             });
     }
 
     addArea() {
         this.areaService.addArea(this.area)
-            .subscribe(area => {                
-                this.getAreas();
-                this.modalArea.hide();
-            });
+            .subscribe(
+                response => {
+                    if (response.success) {
+                        this.getAreas();
+                        this.modalArea.hide();
+                        this.alert.success(this.messages.SUCCESSFUL_OPERATION);
+                    } else {
+                        this.alert.warning(response.msg);
+                    }
+                },
+                () => {
+                    this.alert.error(this.messages.ERROR)
+                });
     }
 
     onSubmit() {

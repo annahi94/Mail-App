@@ -14,12 +14,19 @@ var animations_1 = require("@angular/animations");
 var area_model_1 = require("./area.model");
 var modal_1 = require("ngx-bootstrap/modal");
 var area_service_1 = require("../services/area.service");
+var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
 var AreaComponent = /** @class */ (function () {
-    function AreaComponent(modalService, areaService) {
+    function AreaComponent(modalService, areaService, alert, container) {
         this.modalService = modalService;
         this.areaService = areaService;
+        this.alert = alert;
+        this.container = container;
         this.search = '';
         this.noDataFound = 'No data found!';
+        this.messages = {
+            SUCCESSFUL_OPERATION: 'Successful operation',
+            ERROR: 'Error - please contact the administrator'
+        };
         this.areas = [];
         this.area = new area_model_1.Area(0, '', true);
         this.actionTitle = {
@@ -34,6 +41,7 @@ var AreaComponent = /** @class */ (function () {
             EDIT: 2,
             VIEW: 3
         };
+        alert.setRootViewContainerRef(container);
     }
     AreaComponent.prototype.ngOnInit = function () {
         this.getAreas();
@@ -67,15 +75,20 @@ var AreaComponent = /** @class */ (function () {
         this.areaService.addArea(this.area)
             .subscribe(function (area) {
             _this.getAreas();
-            _this.modalArea.hide();
         });
     };
     AreaComponent.prototype.addArea = function () {
         var _this = this;
         this.areaService.addArea(this.area)
-            .subscribe(function (area) {
-            _this.getAreas();
-            _this.modalArea.hide();
+            .subscribe(function (response) {
+            if (response.success) {
+                _this.getAreas();
+                _this.modalArea.hide();
+                _this.alert.success(_this.messages.SUCCESSFUL_OPERATION);
+            }
+            else {
+                _this.alert.warning(response.msg);
+            }
         });
     };
     AreaComponent.prototype.onSubmit = function () {
@@ -100,7 +113,9 @@ var AreaComponent = /** @class */ (function () {
             ]
         }),
         __metadata("design:paramtypes", [modal_1.BsModalService,
-            area_service_1.AreaSevice])
+            area_service_1.AreaSevice,
+            ng2_toastr_1.ToastsManager,
+            core_1.ViewContainerRef])
     ], AreaComponent);
     return AreaComponent;
 }());

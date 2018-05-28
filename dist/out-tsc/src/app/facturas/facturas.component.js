@@ -71,7 +71,9 @@ var FacturasComponent = /** @class */ (function () {
     FacturasComponent.prototype.save = function (facturaSelected) {
         var _this = this;
         this.facturaService.updateFactura(facturaSelected)
-            .subscribe(function () { return _this.toastr.success('Note saved!!'); });
+            .subscribe(function () {
+            _this.toastr.success('Note saved!!');
+        });
         this.modalRef.hide();
     };
     FacturasComponent.prototype.openModal = function (template, factura) {

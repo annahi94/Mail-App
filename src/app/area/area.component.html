@@ -19,15 +19,15 @@
         <tr>
             <th class="col-xs-1">No.</th>
             <th class="col-xs-8">Name</th>
-            <th class="col-xs-2">Active</th>
+            <th class="col-xs-2">Status</th>
             <th class="col-xs-1">Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let row of areas; let i = index">
+        <tr *ngFor="let row of areas | actStatusPipe: {Name: search, DescriptionActive: search} : false; let i = index;">
             <td>{{ i + 1 }}</td>
             <td>{{row.Name}}</td>
-            <td [ngClass]="{'deactivate': !row.Active}">{{row.Active | active }}</td>
+            <td [ngClass]="{'deactivate': !row.Active}">{{row.DescriptionActive}}</td>
             <td>
                 <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="openModal(templateArea, actionEnum.EDIT, row)">
                     <i class="fa fa-edit" aria-hidden="true"></i>
@@ -39,10 +39,6 @@
         </tr>
     </tbody>
 </table>
-<div class="row" *ngIf="areas.length === 0" style="text-align: center">
-    <h3>{{noDataFound}}</h3>
-</div>
-
 
 <ng-template #templateArea>
     <form #frmArea="ngForm" (ngSubmit)="onSubmit()">

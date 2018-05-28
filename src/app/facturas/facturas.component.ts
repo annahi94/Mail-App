@@ -91,7 +91,9 @@ export class FacturasComponent implements OnInit {
 
   save(facturaSelected): void {
     this.facturaService.updateFactura(facturaSelected)
-      .subscribe(() => this.toastr.success('Note saved!!'));
+      .subscribe(() => {
+        this.toastr.success('Note saved!!');        
+      });
     this.modalRef.hide()
   }
 

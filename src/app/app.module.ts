@@ -21,7 +21,7 @@ import { ProductService } from './product.service';
 import { ProductsComponent } from './products/products.component';
 import { AreaSevice } from './services/area.service';
 import { FacturaService } from './services/factura.service';
-
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,8 @@ import { FacturaService } from './services/factura.service';
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     ReactiveFormsModule,
-    MainPipeModule
+    MainPipeModule,
+    AlertModule.forRoot()    
     //HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [ProductService, FacturaService, AreaSevice],

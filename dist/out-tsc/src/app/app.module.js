@@ -29,6 +29,7 @@ var product_service_1 = require("./product.service");
 var products_component_1 = require("./products/products.component");
 var area_service_1 = require("./services/area.service");
 var factura_service_1 = require("./services/factura.service");
+var alert_1 = require("ngx-bootstrap/alert");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -56,7 +57,8 @@ var AppModule = /** @class */ (function () {
                 ngx_bootstrap_1.ModalModule.forRoot(),
                 ngx_bootstrap_1.TooltipModule.forRoot(),
                 forms_1.ReactiveFormsModule,
-                main_pipe_module_1.MainPipeModule
+                main_pipe_module_1.MainPipeModule,
+                alert_1.AlertModule.forRoot()
                 //HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
             ],
             providers: [product_service_1.ProductService, factura_service_1.FacturaService, area_service_1.AreaSevice],
