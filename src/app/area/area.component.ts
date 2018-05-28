@@ -80,9 +80,14 @@ export class AreaComponent implements OnInit {
     }
 
     getAreas() {
-        this.areaService.getAreas().subscribe(response => {
-            this.areas = response
-        });
+        this.areaService.getAreas()
+            .subscribe(
+                response => {
+                    this.areas = response.data
+                },
+                error => {
+                    this.alert.error(this.messages.ERROR)
+                });
     }
 
     reset(): void {
@@ -112,7 +117,7 @@ export class AreaComponent implements OnInit {
                         this.alert.warning(response.msg);
                     }
                 },
-                () => {
+                error => {
                     this.alert.error(this.messages.ERROR)
                 });
     }

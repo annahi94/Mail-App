@@ -36,18 +36,23 @@ export class FacturasComponent implements OnInit {
   public facturas: Array<Factura>;
   invoiceIndex: Number = -1;
   pdf: Uint8Array;
-  facturaSelected: Factura[];
+  facturaSelected: Factura;
+  CNPJ: string = '';
   modalRef: BsModalRef;
   reloading: BehaviorSubject<boolean>;
+  messages = {
+    SUCCESSFUL_OPERATION: 'Successful operation',
+    ERROR: 'Error - please contact the administrator'
+  }
 
   constructor(
     private facturaService: FacturaService
-    , private toastr: ToastsManager
+    , private alert: ToastsManager
     , private _vcr: ViewContainerRef
     , private http: Http
     , private changeDetectorRefs: ChangeDetectorRef
     , private modalService: BsModalService) {
-    this.toastr.setRootViewContainerRef(_vcr);
+    this.alert.setRootViewContainerRef(_vcr);
     this.reloading = new BehaviorSubject<boolean>(false);
   }
 
@@ -98,22 +103,37 @@ export class FacturasComponent implements OnInit {
   }
 
   getFacturas(): void {
-    this.facturaService.getFacturas().subscribe((facturas: Array<Factura>) => {
-      this.facturas = facturas;
-      console.log(this.facturas);
-    });
+    this.facturaService.getFacturas()
+      .subscribe(
+        response => {
+          this.facturas = response.data;
+        },
+        error => {
+          this.alert.error(this.messages.ERROR)
+        });
   }
 
   save(facturaSelected): void {
     this.facturaService.updateFactura(facturaSelected)
-      .subscribe(() => {
-        this.toastr.success('Note saved!!');        
-      });
+      .subscribe(
+        response => {
+          if (response.success) {
+            this.alert.success(this.messages.SUCCESSFUL_OPERATION);
+          } else {
+            this.alert.success(response.msg);
+          }
+
+        },
+        error => {
+          this.alert.error(this.messages.ERROR)
+        });
     this.modalRef.hide()
   }
 
-  openModal(template: TemplateRef<any>, factura: Factura[]) {
-    this.facturaSelected = factura;
+  openModal(template: TemplateRef<any>, factura: Factura) {
+    //this.facturaSelected = factura;    
+    this.facturaSelected = Object.assign({}, factura);    
+    this.CNPJ = this.facturaSelected.cnpj;
     this.modalRef = this.modalService.show(template);
   }
 
