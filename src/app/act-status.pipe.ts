@@ -6,11 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ActStatusPipe implements PipeTransform {
 
-  /*public transform(value, keys: string, term: string) {
-    if (!term) return value;
-    return (value || []).filter((item) => keys.split(',').some(key => item.hasOwnProperty(key) && new RegExp(term, 'gi').test(item[key])));
-  }*/
-
   transform(items: any, filter: any, isAnd: boolean): any {
     if (filter && Array.isArray(items)) {
       let filterKeys = Object.keys(filter);
