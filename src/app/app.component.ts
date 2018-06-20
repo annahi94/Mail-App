@@ -14,11 +14,14 @@ export class AppComponent {
   selectedMenu: Menu;
   currentURL: string = '';
   menus: Menu[] = [
-    new Menu('/', 'Home', new Header('Home', '../assets/images/GE-logo.png'), false, null),    
+    new Menu('/', 'Home', new Header('Home'), false, null),    
     new Menu(null, 'Catalogs', null, true, [
-      new Menu('/area', 'Area', new Header('Area', '../assets/images/GE-healthcare.png'), false, null)      
+      new Menu('/area', 'Area', new Header('Area'), false, null)      
     ]),
-    new Menu('/healthcare', 'Health Care', new Header('Health Care', '../assets/images/GE-healthcare.png'), false, null),
+    new Menu(null, 'Configurations', null, true, [
+      new Menu('/conf-provider', 'Provider - XML & PDF', new Header('Provider - XML & PDF'), false, null)
+    ]),
+    new Menu('/healthcare', 'Health Care', new Header('Health Care'), false, null),
   ]
 
 

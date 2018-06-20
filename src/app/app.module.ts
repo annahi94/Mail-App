@@ -22,6 +22,8 @@ import { ProductsComponent } from './products/products.component';
 import { AreaSevice } from './services/area.service';
 import { FacturaService } from './services/factura.service';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { ConfigurationProviderComponent } from './configuration/provider/provider-conf.component';
+import { ConfigurationProviderService } from './services/provider-conf.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     HeadersComponent,
     AreaComponent,
     ActivePipe,
-    InverseActivePipe
+    InverseActivePipe,
+    ConfigurationProviderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     AlertModule.forRoot()    
     //HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [ProductService, FacturaService, AreaSevice],
+  providers: [ProductService, FacturaService, AreaSevice, ConfigurationProviderService],
   bootstrap: [AppComponent]
 })
 

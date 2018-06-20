@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-sm-3">
+        <div class="input-group">
+            <input type="text" [(ngModel)]="search" class="form-control" placeholder="Search by CNPJ...">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+    <div class="col-sm-1 pull-right">
+        <button class="btn btn-primary" tooltip="Add" (click)="openModal(templateConfProvider, actionEnum.ADD)">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</div>
+<hr />
+<table class="table table-hover" [@flyInOut]>
+    <thead>
+        <th class="col-xs-1">No.</th>
+        <th class="col-xs-4">CNPJ</th>
+        <th class="col-xs-2">{{tagTitle.INVOICE_NUMBER}}</th>
+        <th class="col-xs-2">{{tagTitle.TOTAL_AMOUNT}}</th>
+        <th class="col-xs-2">{{tagTitle.ISSUE_DATE}}</th>
+        <th class="col-xs-1">Actions</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of configurationsProvider | actStatusPipe: { Cnpj: search } : false; let i = index;">
+            <td>{{ i + 1 }}</td>
+            <td>{{row.Cnpj}}</td>
+            <td>{{row.tagIN.Value}}</td>
+            <td>{{row.tagTA.Value}}</td>
+            <td>{{row.tagID.Value}}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-primary" tooltip="Edit" (click)="openModal(templateConfProvider, actionEnum.EDIT, row)">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #templateConfProvider>
+    <form #frmConfProvider="ngForm" (ngSubmit)="onSubmit()">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">
+                <i class="fa fa-plus" *ngIf="actionSelected === actionEnum.ADD"></i>
+                <i class="fa fa-pencil" *ngIf="actionSelected === actionEnum.EDIT"></i>
+                <i class="fa fa-eye" *ngIf="actionSelected === actionEnum.VIEW"></i>
+                {{ actionSelected === actionEnum.ADD ? actionTitle.ADD : actionSelected === actionEnum.EDIT ? actionTitle.EDIT : actionSelected
+                === actionEnum.VIEW ? actionTitle.VIEW : actionTitle.NONE }}
+            </h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalConfProvider.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>CNPJ *</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="configurationProvider.Cnpj" required/>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <b style="font-size: 0.46cm;">XML</b>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Tag&nbsp;{{tagTitle.INVOICE_NUMBER}} *</label>
+                    <input type="text" class="form-control" name="xmlTag1" [(ngModel)]="tagIN.Value" required/>
+                </div>
+                <div class="col-sm-4">
+                    <label>Tag&nbsp;{{tagTitle.TOTAL_AMOUNT}} *</label>
+                    <input type="text" class="form-control" name="xmlTag2" [(ngModel)]="tagTA.Value" required/>
+                </div>
+                <div class="col-sm-4">
+                    <label>Tag&nbsp;{{tagTitle.ISSUE_DATE}} *</label>
+                    <input type="text" class="form-control" name="xmlTag3" [(ngModel)]="tagID.Value" required/>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-block btn-primary" [disabled]="!frmConfProvider.valid">Save</button>
+        </div>
+    </form>
+</ng-template>

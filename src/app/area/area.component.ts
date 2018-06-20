@@ -75,11 +75,11 @@ export class AreaComponent implements OnInit {
             this.reset();
     }
 
-    setFields(selectedArea: Area) {
+    setFields(selectedArea: Area): void {
         this.area = Object.assign({}, selectedArea);
     }
 
-    getAreas() {
+    getAreas(): void {
         this.areaService.getAreas()
             .subscribe(
                 response => {
@@ -94,7 +94,7 @@ export class AreaComponent implements OnInit {
         this.area = new Area(0, '', true);
     }
 
-    activateOrDeactivate(row: Area) {
+    activateOrDeactivate(row: Area) : void{
         this.area = Object.assign({}, row);
         this.area.Active = !this.area.Active;
 
@@ -105,7 +105,7 @@ export class AreaComponent implements OnInit {
             });
     }
 
-    addArea() {
+    addArea() : void{
         this.areaService.addArea(this.area)
             .subscribe(
                 response => {
@@ -122,7 +122,7 @@ export class AreaComponent implements OnInit {
                 });
     }
 
-    onSubmit() {
+    onSubmit() : void{
         this.addArea();
     }
 
