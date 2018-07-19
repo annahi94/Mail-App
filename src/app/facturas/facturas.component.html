@@ -12,14 +12,12 @@
     <thead>
       <tr>
         <th>No.</th>
-        <th>CNPJ</th>
         <th>PO</th>
-        <th>No. Note</th>
-        <th>Total Value</th>
-        <th>Emission Date</th>
-        <th>Note Type</th>
+        <th>Status</th>
+        <th>No. Workflow</th>
+        <th>Comments</th>
+        <th>PO Type</th>
         <th>Invoice</th>
-        <th class="text-center">Edit Invoice</th>
       </tr>
     </thead>
     <tbody>
@@ -27,20 +25,14 @@
       <ng-container *ngFor="let factura of facturas | actStatusPipe: {cnpj:search, po:search, noNote:search, totalValue:search, totalValue:search, emissionDate:search, noteType:search} : false; let i = index">
         <tr id="invoice{{i + 1}}" *ngIf="invoiceIndex === -1 ? true : i+1 === invoiceIndex" >
           <td>{{i + 1}}</td>
-          <td>{{ factura.cnpj }}</td>
           <td>{{ factura.po }}</td>
-          <td>{{ factura.noNote }}</td>
-          <td>${{ factura.totalValue}}</td>
-          <td>{{ factura.emissionDate }}</td>
-          <td>{{ factura.noteType }}</td>
+          <td>{{ factura.descStatus }}</td>
+          <td>{{ factura.noWorkflow }}</td>
+          <td>{{ factura.comments }}</td>
+          <td>{{ factura.descPOType}}</td>
           <td>
-            <button type="button" class="btn btn-danger" (click)="showPdf(factura.pdfPath, i)">
+            <button type="button" class="btn btn-danger" (click)="showPdf(factura.pdfBytes, i)">
               <i class="glyphicon glyphicon-eye-open"></i> PDF View
-            </button>
-          </td>
-          <td class="text-center">
-            <button class="btn btn-primary" (click)="openModal(template, factura, i)">
-              <i class="glyphicon glyphicon-edit fa-lg"></i>
             </button>
           </td>
         </tr>
