@@ -25,7 +25,7 @@
     <tbody>
         <!-- <ng-container *ngFor="let factura of facturas; let i = index"> -->
       <ng-container *ngFor="let factura of facturas | actStatusPipe: {cnpj:search, po:search, noNote:search, totalValue:search, totalValue:search, emissionDate:search, noteType:search} : false; let i = index">
-        <tr *ngIf="invoiceIndex === -1 ? true : i+1 === invoiceIndex" >
+        <tr id="invoice{{i + 1}}" *ngIf="invoiceIndex === -1 ? true : i+1 === invoiceIndex" >
           <td>{{i + 1}}</td>
           <td>{{ factura.cnpj }}</td>
           <td>{{ factura.po }}</td>
