@@ -21,7 +21,7 @@ export class FacturaService {
 
   }
 
-  private facturasURL = 'http://localhost:50192/api/Invoice';
+  private facturasURL = 'http://localhost:50111/api/Invoice';
 
   private handleError(error: any) {
     console.log(error.error);

@@ -122,19 +122,11 @@ export class FacturasComponent implements OnInit {
           } else {
             this.alert.success(response.msg);
           }
-
         },
         error => {
           this.alert.error(this.messages.ERROR)
         });
     this.modalRef.hide()
-  }
-
-  openModal(template: TemplateRef<any>, factura: Factura) {
-    //this.facturaSelected = factura;    
-    this.facturaSelected = Object.assign({}, factura);    
-    this.CNPJ = this.facturaSelected.cnpj;
-    this.modalRef = this.modalService.show(template);
   }
 
   showPdf(bytePdf, currentInvoice): void {
